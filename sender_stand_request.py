@@ -11,19 +11,25 @@ def post_new_user(body):
 
 response = post_new_user(data.user_body)
 print(response.status_code)
-print(response.json())
+Autoken = response.json()['authToken']
 
-
+headers_2 = {
+    "Content-Type": "application/json",
+    "Authorization": f'Bearer {Autoken}'
+}
 
 
 #Funcion para crear un nuevo Kit personal de producto
 def post_new_client_kit(kit_body):
     return requests.post(configuration.URL_SERVICE + configuration.KITS_PATH,# inserta la dirección URL completa
                          json=kit_body,  # inserta el cuerpo de solicitud
-                         headers=data.headers) # inserta los encabezados, incluyendo la Autorization
+                         headers=headers_2) # inserta los encabezados, incluyendo la Autorization
 
 
 response = post_new_client_kit(data.kit_body)
 print(response.status_code)
 print(response.json())
+
+
+
 
